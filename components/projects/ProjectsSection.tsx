@@ -26,7 +26,7 @@ export function ProjectsSection() {
       </div>
       <div
         className="projects-grid"
-        style={{ display: "grid", gap: 18, marginTop: 30 }}
+        style={{ display: "grid", gap: 18, marginTop: 30, alignItems: "start" }}
       >
         {profile.projects.map((p) => (
           <ProjectCard key={p.name} project={p} />

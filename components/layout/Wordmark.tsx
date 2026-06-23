@@ -66,7 +66,7 @@ export function Wordmark() {
             pointerEvents: scrolled ? "auto" : "none",
           }}
         >
-          Sahil Sapra
+          sahil sapra
         </span>
       </span>
     </a>
