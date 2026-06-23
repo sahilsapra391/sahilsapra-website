@@ -7,7 +7,9 @@ export const maxDuration = 30;
 
 const MAX_CHARS = 1000; // per user message
 const MAX_MESSAGES = 20; // per conversation
-const MODEL = process.env.OPENROUTER_MODEL ?? "anthropic/claude-3.5-haiku";
+// .trim() guards against keys/slugs pasted with a stray space or newline —
+// a trailing newline in the key makes the Authorization header throw.
+const MODEL = (process.env.OPENROUTER_MODEL ?? "anthropic/claude-3.5-haiku").trim();
 
 type ClientMessage = { role: "user" | "assistant"; content: string };
 
@@ -65,7 +67,7 @@ export async function POST(req: Request) {
   }
 
   // 3) no key configured → graceful escalation (keeps local dev + previews alive)
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY?.trim();
   if (!apiKey) {
     return textStream(
       `The live assistant isn't configured in this environment yet. ${profile.chatbot.escalationNote}`,
@@ -94,13 +96,22 @@ export async function POST(req: Request) {
         ],
       }),
     });
-  } catch {
+  } catch (err) {
+    console.error(
+      "[chat] OpenRouter request threw — check OPENROUTER_API_KEY for stray whitespace/newlines:",
+      err,
+    );
     return textStream(
       `Sorry — the assistant is unreachable right now. ${profile.chatbot.escalationNote}`,
     );
   }
 
   if (!upstream.ok || !upstream.body) {
+    const detail = await upstream.text().catch(() => "");
+    console.error(
+      `[chat] OpenRouter responded ${upstream.status} for model "${MODEL}":`,
+      detail.slice(0, 500),
+    );
     return textStream(
       `Sorry — the assistant hit an error. ${profile.chatbot.escalationNote}`,
     );

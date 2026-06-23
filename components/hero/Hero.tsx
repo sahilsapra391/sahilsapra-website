@@ -129,6 +129,7 @@ export function Hero() {
             width={232}
             height={288}
             priority
+            quality={95}
             sizes="232px"
             style={{
               display: "block",

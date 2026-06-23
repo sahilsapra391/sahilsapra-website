@@ -81,6 +81,7 @@ export const metadata: Metadata = {
       { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
     ],
     shortcut: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
   },
   robots: { index: true, follow: true },
 };
@@ -127,8 +128,8 @@ export default function RootLayout({
         />
         <ThemeProvider
           attribute="data-theme"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <Background />
