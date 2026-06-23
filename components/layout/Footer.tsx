@@ -24,7 +24,7 @@ export function Footer() {
         <span>
           © {year} {profile.identity.name}
         </span>
-        <span>built with Next.js · deployed on Vercel</span>
+        <span>built with love &amp; Next.js</span>
       </div>
     </footer>
   );

@@ -1,11 +1,10 @@
 import { profile } from "@/lib/profile";
-import { TrackedLink } from "@/components/ui/TrackedLink";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Wordmark } from "@/components/layout/Wordmark";
-import { ResumeIcon } from "@/components/ui/icons";
+import { ResumeButton } from "@/components/layout/ResumeButton";
 
 const NAV_LINKS = [
-  { label: "work", href: "#work" },
+  { label: "experience", href: "#work" },
   { label: "projects", href: "#projects" },
   { label: "stack", href: "#stack" },
   { label: "contact", href: "#contact" },
@@ -77,32 +76,7 @@ export function Nav() {
             gap: 10,
           }}
         >
-          <TrackedLink
-            href={links.resume}
-            event="resume_viewed"
-            newTab
-            download
-            ariaLabel="Download résumé"
-            className="h-pillbtn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              height: 34,
-              padding: "0 12px",
-              border: "1px solid var(--line)",
-              borderRadius: 999,
-              background: "var(--surface)",
-              color: "var(--text-lo)",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11.5,
-              textDecoration: "none",
-              transition: "border-color .15s, color .15s",
-            }}
-          >
-            <ResumeIcon />
-            resume
-          </TrackedLink>
+          <ResumeButton href={links.resume} />
           <ThemeToggle />
         </div>
       </div>
