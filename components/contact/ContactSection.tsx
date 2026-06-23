@@ -52,7 +52,7 @@ export function ContactSection() {
           >
             Want the fast version?{" "}
             <span style={{ color: "var(--pass)", fontStyle: "var(--accent-style)" }}>
-              Ask the agent.
+              Ask the agent me.
             </span>
             <br />
             Ready to talk?{" "}
