@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0B0F17"></rect>
+  <rect x="1.25" y="1.25" width="61.5" height="61.5" rx="12.75" fill="none" stroke="#1F2A3C" stroke-width="2.5"></rect>
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central" font-family="&#39;Space Grotesk&#39;,&#39;Helvetica Neue&#39;,Arial,sans-serif" font-size="34" font-weight="700" letter-spacing="-1.5" fill="#E8ECF3">SS</text>
+  <rect x="16" y="46" width="20" height="3" rx="1.5" fill="#2163CA"></rect>
+  <circle cx="48" cy="47" r="8.5" fill="#2FA75A"></circle>
+  <path d="M44.2 47.2 L46.7 49.7 L51.6 44.4" fill="none" stroke="#0B0F17" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

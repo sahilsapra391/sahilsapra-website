@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-06-23",
+    "note": "Single source of truth for sahilsapra.com. Both the website UI and the 'Ask Sahil' chatbot read from this file. Edit here, never in component code."
+  },
+  "identity": {
+    "name": "Sahil Sapra",
+    "title": "Technical Product Manager",
+    "taglineLead": "I ship software that's",
+    "taglineAccent": "reliable.",
+    "heroSummary": "Product leader in enterprise SaaS, QA automation, release quality, and agentic developer workflows.",
+    "availability": "Open to AI-first PM and TPM roles",
+    "location": "Charlotte, NC",
+    "locationShort": "charlotte, nc",
+    "summary": "Technical product manager with hands-on experience leading aviation B2B SaaS and AI-powered platform initiatives across product strategy, quality engineering, enterprise integrations, and scalable software delivery. Track record of driving product-market fit, accelerating go-to-market execution, growing ARR, and delivering operational efficiency through automation and AI-enabled workflows. Strong in Agile product management, CI/CD modernization, release control via feature flags, QA automation, and clear technical writing.",
+    "openTo": [
+      "AI-first Product Manager roles (US & India)",
+      "Technical Product Manager",
+      "Product Owner"
+    ],
+    "links": {
+      "email": "sahilsapra391@gmail.com",
+      "emailHref": "mailto:sahilsapra391@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/sahil-sapra/",
+      "github": "https://github.com/sahilsapra391",
+      "youtube": "https://www.youtube.com/@sahilsapraa",
+      "resume": "/Sahil_Sapra_Resume.pdf",
+      "scheduleCall": "https://calendar.app.google/Xzzeg1fmh5xmpgL77",
+      "website": "https://sahilsapra.com"
+    }
+  },
+  "headlineMetrics": [
+    { "lead": "", "value": 75, "suffix": "", "label": "enterprise customers migrated", "detail": "zero operational downtime", "tone": "pass" },
+    { "lead": "", "value": 104, "suffix": "%", "label": "YoY ARR growth", "detail": "two consecutive years", "tone": "brand" },
+    { "lead": "", "value": 4, "suffix": "", "label": "design partners secured", "detail": "early product-market fit", "tone": "pass" },
+    { "lead": "", "value": 400, "suffix": "%", "label": "release frequency", "detail": "deployments decoupled from releases", "tone": "brand" },
+    { "lead": "62% → ", "value": 81, "suffix": "%", "label": "QA test coverage", "detail": "automation strategy", "tone": "pass" },
+    { "lead": "", "value": 68, "suffix": "%", "label": "latency reduction", "detail": "monolithic → microservices architecture", "tone": "brand" }
+  ],
+  "experience": [
+    {
+      "company": "SpecHawk Inc.",
+      "companyUrl": "https://spechawk.ai/",
+      "location": "Remote",
+      "dates": "2026 – Present",
+      "current": true,
+      "roles": [
+        {
+          "title": "Co-Founder & Head of Product",
+          "dates": "Jun 2026 – Present",
+          "summary": "Directed an AI-powered, deploy-aware no-code agentic QA platform for SaaS — automated staging-environment mapping, test-case generation, execution, Jira validation, screenshot evidence, and release scheduling.",
+          "bullets": [
+            { "text": "Secured four strategic design partners to validate product-market fit and accelerate early adoption across SaaS engineering teams.", "metric": "4 design partners", "tone": "brand" },
+            { "text": "Executed a six-month roadmap, delivered the MVP, and advanced V2/V3 builds — a Security Hub for dependency risk, GitHub integration, a developer CLI, and credit-based pricing.", "metric": "MVP + V2/V3", "tone": "brand" },
+            { "text": "Raised early pre-seed capital to support MVP development, customer discovery, and product validation.", "metric": "pre-seed raised", "tone": "pass" }
+          ]
+        }
+      ]
+    },
+    {
+      "company": "CAMP Systems International",
+      "companyUrl": "https://campaviate.aero/",
+      "location": "Charlotte, NC",
+      "dates": "2024 – 2026",
+      "current": false,
+      "roles": [
+        {
+          "title": "Technical Product Manager II",
+          "dates": "Aug 2025 – Jun 2026",
+          "summary": "Led quality-engineering transformation — scaling automated testing frameworks and improving QA efficiency across cross-functional delivery pipelines.",
+          "bullets": [
+            { "text": "Executed enterprise customer migration, onboarding 75 customers from competing FBO platforms to TFBO Next-Gen, sustaining 104% YoY ARR growth over two years.", "metric": "75 customers · 104% YoY", "tone": "pass" },
+            { "text": "Led the transition from a legacy monolith to a domain-driven microservices architecture (Java, Spring Boot, TypeScript, Angular) — reusable REST APIs, caching, RxJS, lazy loading.", "metric": "68% latency ↓", "tone": "pass" },
+            { "text": "Directed QA resource planning and automation strategy, improving test coverage with enterprise-grade release stability and regression assurance.", "metric": "62% → 81% coverage", "tone": "pass" },
+            { "text": "Accelerated delivery velocity through AI-driven workflow integration, shipping the Invoicing redesign five months early and reducing churn.", "metric": "5 months faster", "tone": "brand" }
+          ]
+        },
+        {
+          "title": "Product Manager",
+          "dates": "May 2024 – Aug 2025",
+          "summary": "Supported post-merger integration of multiple FBO products into CAMP's aircraft-maintenance suite following a $200M acquisition.",
+          "bullets": [
+            { "text": "Led enterprise-wide adoption of LaunchDarkly, modernized CI/CD, and decoupled deployment from release cycles.", "metric": "400% release freq.", "tone": "brand" },
+            { "text": "Built a LaunchDarkly API web app for centralized feature-flag control, reducing subscription costs.", "metric": "7% OPEX ↓", "tone": "pass" }
+          ]
+        }
+      ]
+    },
+    {
+      "company": "World Kinect",
+      "companyUrl": "https://www.world-kinect.com/",
+      "location": "Miami, FL",
+      "dates": "2022 – 2024",
+      "current": false,
+      "roles": [
+        {
+          "title": "IT Business Analyst",
+          "dates": "Jun 2023 – May 2024",
+          "summary": "Drove data-driven product improvements through continuous enhancement cycles, optimizing ERP workflows for aviation operations.",
+          "bullets": [
+            { "text": "Spearheaded integrations connecting four accounting platforms and two loyalty programs into FBO360, expanding ecosystem capabilities.", "metric": "6 integrations", "tone": "brand" },
+            { "text": "Collaborated with engineering, QA, and stakeholders to improve reliability, scalability, and UX across FBO360 deployments.", "metric": "", "tone": "brand" }
+          ]
+        },
+        {
+          "title": "Business Intelligence Intern",
+          "dates": "Jun 2022 – Dec 2022",
+          "summary": "Built dashboards, performed data modeling, and generated insights to inform product and business decisions.",
+          "bullets": [
+            { "text": "Engineered seven Tableau dashboards on Snowflake SQL across four apps to surface usage patterns and reduce customer attrition.", "metric": "28% attrition ↓", "tone": "pass" }
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Keiretsu Forum",
+      "companyUrl": "https://www.keiretsuforumnorcal.com/",
+      "location": "San Francisco, CA",
+      "dates": "2021",
+      "current": false,
+      "roles": [
+        {
+          "title": "Summer Intern",
+          "dates": "2021",
+          "summary": "Supported venture due diligence for the in-house investment fund.",
+          "bullets": [
+            { "text": "Built Python classification models to evaluate ~250 early-stage startups, automating due diligence and surfacing 8 high-potential seed targets.", "metric": "~250 → 8 targets", "tone": "pass" }
+          ]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "M.S. in Computer Systems — AI Specialization",
+      "institution": "Indiana Wesleyan University",
+      "location": "Marion, IN",
+      "dates": "Jun 2026 – Present",
+      "honors": [],
+      "inProgress": true,
+      "coursework": ["Machine Learning", "Generative AI", "Model Development", "Prompt Engineering", "Cloud Computing"]
+    },
+    {
+      "degree": "B.S. in Quantitative Economics · Co-Major Analytics · Minor CS",
+      "institution": "Miami University",
+      "location": "Oxford, OH",
+      "dates": "Aug 2019 – May 2023",
+      "honors": ["Dean's List (2020, 2022)"],
+      "inProgress": false,
+      "coursework": ["Large Language Models", "Sentiment Analysis", "Big Data", "Agile/Scrum", "Data Structures", "OOP", "Data Mining"]
+    }
+  ],
+  "skills": {
+    "Cloud & Infrastructure": ["AWS", "Azure", "GCP", "CloudFormation", "Docker", "Terraform", "Railway", "Vercel"],
+    "CI/CD & DevOps": ["Bitbucket", "Git", "AWS CodePipeline", "LaunchDarkly", "New Relic", "Observability", "Release Automation", "Feature Flags"],
+    "Languages & Frameworks": ["TypeScript", "Python", "Angular", "React", "Next.js", "Java", "Spring Boot", "NestJS", "Node.js", "PostgreSQL"],
+    "API Development": ["REST", "Swagger", "Postman", "GraphQL", "Apigee", "API Gateway", "Microservices", "Caching", "RxJS"],
+    "AI & Product Tooling": ["Cursor", "Claude Code", "Codex", "GitHub Copilot", "Amazon Q", "Replit", "Jira", "Confluence", "Tableau", "Snowflake"]
+  },
+  "areasOfExpertise": [
+    "Product Lifecycle Management",
+    "Scalable System Architecture",
+    "Cloud Infrastructure Optimization",
+    "Technical Program Leadership",
+    "AI-Enabled Developer Workflows",
+    "QA Automation & Reliability",
+    "CI/CD & Release Management",
+    "Enterprise Software Implementation",
+    "Process Automation"
+  ],
+  "projects": [
+    {
+      "name": "EY Blockchain Case Competition",
+      "year": "2021",
+      "role": "Team Lead",
+      "metric": "2nd place nationally",
+      "tags": ["Blockchain", "Ethereum", "Solidity", "Supply Chain"],
+      "blurb": "Designed a blockchain solution to stop double-counting of vaccination records and fake CDC cards.",
+      "detail": "Built a mock decentralized public network on Ethereum with multiple validator nodes and varying encryption to store global vaccination records. Placed 2nd nationally."
+    },
+    {
+      "name": "Redhawk Digital Asset Fund LLC",
+      "year": "2021 – 2022",
+      "role": "Founder / VP of Tokenomics",
+      "metric": "student-run fund",
+      "tags": ["Crypto", "Fund Mgmt", "Tokenomics", "IPS"],
+      "blurb": "Co-founded a student-run, university-funded cryptocurrency investment fund.",
+      "detail": "Founded with three other students; authored the investment thesis, IPS, and risk policy. Taught the university blockchain-basics course as an appointed instructor for the 2021–22 catalog."
+    },
+    {
+      "name": "Startup Due-Diligence Classifier",
+      "year": "2021",
+      "role": "Summer Intern, Keiretsu",
+      "metric": "~250 evaluated · 8 surfaced",
+      "tags": ["Python", "Machine Learning", "Venture"],
+      "blurb": "Python classification models that automated venture due diligence across ~250 early-stage startups.",
+      "detail": "Surfaced 8 high-potential seed targets for the in-house fund. Prepared DD reports and presented independent investments with ticket sizes up to $20M to PE groups and forum members."
+    },
+    {
+      "name": "Tableau Analytics & ETL Automation",
+      "year": "2022",
+      "role": "BI Intern, World Kinect",
+      "metric": "~300% faster delivery",
+      "tags": ["Tableau", "Snowflake", "SQL", "Fivetran"],
+      "blurb": "Seven Tableau dashboards on Snowflake across four apps, plus an automated ETL pipeline.",
+      "detail": "Mined, cleaned, and modeled usage data to build seven dashboards. Automated ETL ingestion into Snowflake via Fivetran, increasing delivery speed ~300% and helping cut attrition 28%."
+    },
+    {
+      "name": "P&G Consultancy Challenge",
+      "year": "2021",
+      "role": "Pi Sigma Epsilon",
+      "metric": "1st place",
+      "tags": ["GTM Strategy", "Marketing", "Consulting"],
+      "blurb": "Won first place in a Procter & Gamble consultancy competition for a product roll-out and GTM strategy.",
+      "detail": "Devised a business and marketing strategy as part of a partner consultancy project; recognized by P&G judges."
+    },
+    {
+      "name": "Engineers Without Borders — Rwanda",
+      "year": "2019 – 2021",
+      "role": "Active Member",
+      "metric": "clean-water build",
+      "tags": ["AutoCAD", "Project Mgmt", "Nonprofit"],
+      "blurb": "Supported an on-ground student engineering team in Rwanda with PM and CAD design.",
+      "detail": "Provided project-management support and produced AutoCAD pump blueprints for a clean-water installation project."
+    }
+  ],
+  "certifications": [
+    "AWS Certified Cloud Practitioner",
+    "Weaviate Vector Databases Professional",
+    "ICAgile Certified Professional",
+    "Atlassian Agile PM Professional",
+    "Aha! Product Management Professional",
+    "Anaconda Machine Learning Professional"
+  ],
+  "chatbot": {
+    "displayName": "Ask Sahil",
+    "subtitle": "trained on Sahil's background",
+    "greeting": "Hey — I'm an AI agent trained on Sahil's experience. Ask me about his work at SpecHawk or CAMP, his QA-automation projects, his skills, or whether he's a fit for a role you're hiring for.",
+    "suggestedQuestions": [
+      "What does Sahil do at SpecHawk?",
+      "Walk me through the 75-customer migration.",
+      "What's his experience with QA automation?",
+      "Is he open to PM roles right now?"
+    ],
+    "escalationNote": "For anything I can't answer, reach Sahil on LinkedIn — or book a quick call: https://calendar.app.google/Xzzeg1fmh5xmpgL77"
+  },
+  "analytics": {
+    "note": "Page views/visitors/referrers/devices are automatic via Vercel Web Analytics. The events below are the custom button-click events instrumented with track().",
+    "events": [
+      "resume_viewed",
+      "schedule_call_clicked",
+      "chat_opened",
+      "chat_message_sent",
+      "linkedin_clicked",
+      "github_clicked",
+      "email_clicked",
+      "youtube_clicked",
+      "project_expanded",
+      "theme_toggled"
+    ]
+  }
+}

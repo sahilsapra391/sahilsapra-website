@@ -1,0 +1,68 @@
+import { profile } from "@/lib/profile";
+import { ContactActions } from "./ContactActions";
+
+export function ContactSection() {
+  const { links } = profile.identity;
+  return (
+    <section id="contact" style={{ padding: "64px 0 80px", scrollMarginTop: 88 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          marginBottom: 34,
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 400,
+            fontSize: 34,
+            letterSpacing: "-.01em",
+          }}
+        >
+          contact
+        </h2>
+        <span style={{ flex: 1, height: 1, background: "var(--line)" }} />
+      </div>
+
+      <div
+        style={{
+          border: "1px solid var(--line)",
+          borderRadius: 10,
+          background: "var(--surface)",
+          padding: "44px 40px",
+          display: "flex",
+          gap: 40,
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ flex: "1 1 360px" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 400,
+              fontSize: "clamp(26px, 3.4vw, 36px)",
+              lineHeight: 1.16,
+              letterSpacing: "-.01em",
+              maxWidth: "20ch",
+            }}
+          >
+            Want the fast version?{" "}
+            <span style={{ color: "var(--pass)", fontStyle: "italic" }}>
+              Ask the agent.
+            </span>
+            <br />
+            Ready to talk?{" "}
+            <span style={{ color: "var(--brand-soft)", fontStyle: "italic" }}>
+              Book a call.
+            </span>
+          </p>
+        </div>
+        <ContactActions links={links} />
+      </div>
+    </section>
+  );
+}
