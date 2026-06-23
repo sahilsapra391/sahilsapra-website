@@ -1,6 +1,7 @@
 import { profile } from "@/lib/profile";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { Wordmark } from "@/components/layout/Wordmark";
 import { ResumeIcon } from "@/components/ui/icons";
 
 const NAV_LINKS = [
@@ -36,35 +37,7 @@ export function Nav() {
           gap: 24,
         }}
       >
-        <a
-          href="#top"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 9,
-            textDecoration: "none",
-            color: "var(--text-hi)",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--display)",
-              fontStyle: "var(--accent-style)",
-              fontWeight: 400,
-              fontSize: 22,
-              letterSpacing: "-.01em",
-              color: "var(--text-hi)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            heyo whatsup{" "}
-            <span style={{ fontSize: 18, lineHeight: 1 }} aria-hidden="true">
-              👋
-            </span>
-          </span>
-        </a>
+        <Wordmark />
 
         <nav
           className="nav-links"

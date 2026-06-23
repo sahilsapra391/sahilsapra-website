@@ -98,22 +98,32 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.blurb}
       </p>
 
-      {expanded && (
-        <p
-          style={{
-            fontSize: 13.5,
-            lineHeight: 1.6,
-            color: "var(--text-hi)",
-            marginBottom: 14,
-            padding: "12px 14px",
-            borderLeft: "2px solid var(--brand)",
-            background: "var(--surface-2)",
-            borderRadius: "0 6px 6px 0",
-          }}
-        >
-          {project.detail}
-        </p>
-      )}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: expanded ? "1fr" : "0fr",
+          transition: "grid-template-rows .38s cubic-bezier(.4, 0, .2, 1)",
+        }}
+      >
+        <div style={{ overflow: "hidden", minHeight: 0 }}>
+          <p
+            style={{
+              fontSize: 13.5,
+              lineHeight: 1.6,
+              color: "var(--text-hi)",
+              margin: "0 0 14px",
+              padding: "12px 14px",
+              borderLeft: "2px solid var(--brand)",
+              background: "var(--surface-2)",
+              borderRadius: "0 6px 6px 0",
+              opacity: expanded ? 1 : 0,
+              transition: "opacity .3s ease",
+            }}
+          >
+            {project.detail}
+          </p>
+        </div>
+      </div>
 
       <div
         style={{
@@ -159,8 +169,15 @@ export function ProjectCard({ project }: { project: Project }) {
           transition: "color .15s",
         }}
       >
-        <span style={{ color: "var(--brand-soft)" }}>
-          {expanded ? "▾" : "▸"}
+        <span
+          style={{
+            color: "var(--brand-soft)",
+            display: "inline-block",
+            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+            transition: "transform .3s cubic-bezier(.4, 0, .2, 1)",
+          }}
+        >
+          ▸
         </span>
         {expanded ? "less" : "details"}
       </button>

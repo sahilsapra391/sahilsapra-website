@@ -47,6 +47,7 @@ export function Hero() {
           </div>
 
           <h1
+            id="hero-name"
             style={{
               fontFamily: "var(--display)",
               fontWeight: 400,
