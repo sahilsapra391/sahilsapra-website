@@ -18,8 +18,11 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", monospace;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
-  --display: var(--font-display);
-  --accent-style: italic;
+  /* Display = Space Grotesk (technical mode), accent upright.
+     Swap --display to var(--font-display) + --accent-style: italic for the
+     editorial Instrument-Serif treatment — no markup changes needed. */
+  --display: var(--font-grotesk);
+  --accent-style: normal;
   --scan: 0.05;
   color-scheme: dark;
 

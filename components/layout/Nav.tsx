@@ -48,8 +48,8 @@ export function Nav() {
         >
           <span
             style={{
-              fontFamily: "var(--font-display)",
-              fontStyle: "italic",
+              fontFamily: "var(--display)",
+              fontStyle: "var(--accent-style)",
               fontWeight: 400,
               fontSize: 22,
               letterSpacing: "-.01em",

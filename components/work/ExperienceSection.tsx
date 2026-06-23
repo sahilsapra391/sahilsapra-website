@@ -66,7 +66,7 @@ export function ExperienceSection({
       >
         <h2
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "var(--display)",
             fontWeight: 400,
             fontSize: 34,
             letterSpacing: "-.01em",

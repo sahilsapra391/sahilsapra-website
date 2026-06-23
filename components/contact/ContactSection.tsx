@@ -15,7 +15,7 @@ export function ContactSection() {
       >
         <h2
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "var(--display)",
             fontWeight: 400,
             fontSize: 34,
             letterSpacing: "-.01em",
@@ -42,7 +42,7 @@ export function ContactSection() {
         <div style={{ flex: "1 1 360px" }}>
           <p
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "var(--display)",
               fontWeight: 400,
               fontSize: "clamp(26px, 3.4vw, 36px)",
               lineHeight: 1.16,
@@ -51,12 +51,12 @@ export function ContactSection() {
             }}
           >
             Want the fast version?{" "}
-            <span style={{ color: "var(--pass)", fontStyle: "italic" }}>
+            <span style={{ color: "var(--pass)", fontStyle: "var(--accent-style)" }}>
               Ask the agent.
             </span>
             <br />
             Ready to talk?{" "}
-            <span style={{ color: "var(--brand-soft)", fontStyle: "italic" }}>
+            <span style={{ color: "var(--brand-soft)", fontStyle: "var(--accent-style)" }}>
               Book a call.
             </span>
           </p>

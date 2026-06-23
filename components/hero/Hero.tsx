@@ -48,7 +48,7 @@ export function Hero() {
 
           <h1
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "var(--display)",
               fontWeight: 400,
               fontSize: "clamp(56px, 8vw, 88px)",
               lineHeight: 0.98,
@@ -61,7 +61,7 @@ export function Hero() {
 
           <p
             style={{
-              fontFamily: "var(--font-display)",
+              fontFamily: "var(--display)",
               fontWeight: 400,
               fontSize: "clamp(28px, 3.6vw, 38px)",
               lineHeight: 1.18,
@@ -71,7 +71,7 @@ export function Hero() {
             }}
           >
             {identity.taglineLead}{" "}
-            <span style={{ color: "var(--pass)", fontStyle: "italic" }}>
+            <span style={{ color: "var(--pass)", fontStyle: "var(--accent-style)" }}>
               {identity.taglineAccent}
             </span>
           </p>
