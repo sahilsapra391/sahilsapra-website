@@ -236,13 +236,13 @@
   ],
   "chatbot": {
     "displayName": "Ask Sahil",
-    "subtitle": "trained on Sahil's background",
-    "greeting": "Hey — I'm an AI agent trained on Sahil's experience. Ask me about his work at SpecHawk or CAMP, his QA-automation projects, his skills, or whether he's a fit for a role you're hiring for.",
+    "subtitle": "the AI version of Sahil",
+    "greeting": "Hey — I'm Sahil, in AI form. Ask me anything about my work, projects, or what I'm building next and I'll keep it short and sharp. Want the deep dive on something? Just say the word.",
     "suggestedQuestions": [
-      "What does Sahil do at SpecHawk?",
+      "What are you building at SpecHawk?",
       "Walk me through the 75-customer migration.",
-      "What's his experience with QA automation?",
-      "Is he open to PM roles right now?"
+      "What's your take on QA automation?",
+      "Are you open to new roles right now?"
     ],
     "escalationNote": "For anything I can't answer, reach Sahil on LinkedIn — or book a quick call: https://calendar.app.google/Xzzeg1fmh5xmpgL77"
   },

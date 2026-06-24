@@ -89,8 +89,8 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         model: MODEL,
         stream: true,
-        temperature: 0.5,
-        max_tokens: 700,
+        temperature: 0.6,
+        max_tokens: 500,
         messages: [
           { role: "system", content: buildSystemPrompt() },
           ...trimmed.map((m) => ({ role: m.role, content: m.content })),
