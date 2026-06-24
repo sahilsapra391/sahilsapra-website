@@ -5,7 +5,7 @@ import {
   JetBrains_Mono,
   Space_Grotesk,
 } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { Background } from "@/components/layout/Background";
 import { CustomCursor } from "@/components/layout/CustomCursor";
