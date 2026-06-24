@@ -40,3 +40,7 @@ next-env.d.ts
 
 # local agent/dev tooling
 .claude/
+
+# private chatbot source documents (RAG) — NEVER commit the raw files
+/sources/*
+!/sources/README.md

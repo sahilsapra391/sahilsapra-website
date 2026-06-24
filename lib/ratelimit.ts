@@ -11,7 +11,7 @@ const hasRedis =
 const ratelimiter = hasRedis
   ? new Ratelimit({
       redis: Redis.fromEnv(),
-      limiter: Ratelimit.slidingWindow(15, "1 h"), // 15 messages / IP / hour
+      limiter: Ratelimit.slidingWindow(10, "5 m"), // 10 messages / IP / 5 min (recovers continuously)
       prefix: "asksahil",
       analytics: false,
     })

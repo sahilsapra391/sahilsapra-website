@@ -1,29 +1,29 @@
 import { buildSystemPrompt } from "@/lib/system-prompt";
+import { retrieveContext } from "@/lib/retrieval";
 import { profile } from "@/lib/profile";
 import { limit } from "@/lib/ratelimit";
 
-export const runtime = "nodejs";
+// Edge runtime streams token-by-token reliably (unlike the Node serverless
+// runtime, which buffered the stream and timed out).
+export const runtime = "edge";
 export const maxDuration = 30;
 
 const MAX_CHARS = 1000; // per user message
 const MAX_MESSAGES = 20; // per conversation
-// .trim() guards against keys/slugs pasted with a stray space or newline —
-// a trailing newline in the key makes the Authorization header throw.
+// .trim() guards against keys/slugs pasted with a stray space or newline.
 const MODEL = (process.env.OPENROUTER_MODEL ?? "anthropic/claude-3.5-haiku").trim();
 
 type ClientMessage = { role: "user" | "assistant"; content: string };
 
 const encoder = new TextEncoder();
 
-function textStream(message: string): Response {
-  const stream = new ReadableStream({
-    start(controller) {
-      controller.enqueue(encoder.encode(message));
-      controller.close();
+function text(message: string, status = 200): Response {
+  return new Response(message, {
+    status,
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
     },
-  });
-  return new Response(stream, {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
 
@@ -35,9 +35,9 @@ export async function POST(req: Request) {
     "anon";
   const { success } = await limit(ip);
   if (!success) {
-    return new Response(
+    return text(
       "You've hit the message limit for now — reach Sahil on LinkedIn or book a call.",
-      { status: 429 },
+      429,
     );
   }
 
@@ -47,10 +47,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     messages = body?.messages;
   } catch {
-    return new Response("Invalid request.", { status: 400 });
+    return text("Invalid request.", 400);
   }
   if (!Array.isArray(messages) || messages.length === 0) {
-    return new Response("Invalid request.", { status: 400 });
+    return text("Invalid request.", 400);
   }
   const trimmed = messages.slice(-MAX_MESSAGES).filter(
     (m): m is ClientMessage =>
@@ -58,23 +58,26 @@ export async function POST(req: Request) {
       (m.role === "user" || m.role === "assistant") &&
       typeof m.content === "string",
   );
-  const last = trimmed.at(-1);
-  if (!last || last.role !== "user") {
-    return new Response("Invalid request.", { status: 400 });
+  const lastMsg = trimmed.at(-1);
+  if (!lastMsg || lastMsg.role !== "user") {
+    return text("Invalid request.", 400);
   }
-  if (last.content.length > MAX_CHARS) {
-    return new Response("Message too long.", { status: 400 });
+  if (lastMsg.content.length > MAX_CHARS) {
+    return text("Message too long.", 400);
   }
 
   // 3) no key configured → graceful escalation (keeps local dev + previews alive)
   const apiKey = process.env.OPENROUTER_API_KEY?.trim();
   if (!apiKey) {
-    return textStream(
+    return text(
       `The live assistant isn't configured in this environment yet. ${profile.chatbot.escalationNote}`,
     );
   }
 
-  // 4) call OpenRouter (OpenAI-compatible) and stream content deltas as plain text
+  // 4) retrieve relevant passages from Sahil's writing (no-op if unconfigured)
+  const context = await retrieveContext(lastMsg.content);
+
+  // 5) stream from OpenRouter (OpenAI-compatible)
   let upstream: Response;
   try {
     upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -83,27 +86,24 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": profile.identity.links.website,
-        // Header values must be Latin-1 (ASCII) — a non-ASCII char like an
-        // em-dash here makes fetch throw before the request is even sent.
+        // Header values must be Latin-1 (ASCII) — a non-ASCII char (e.g. an
+        // em-dash) makes fetch throw before the request is even sent.
         "X-Title": "Ask Sahil - sahilsapra.com",
       },
       body: JSON.stringify({
         model: MODEL,
         stream: true,
-        temperature: 0.4,
-        max_tokens: 400,
+        temperature: 0.6,
+        max_tokens: 500,
         messages: [
-          { role: "system", content: buildSystemPrompt() },
+          { role: "system", content: buildSystemPrompt(context) },
           ...trimmed.map((m) => ({ role: m.role, content: m.content })),
         ],
       }),
     });
   } catch (err) {
-    console.error(
-      "[chat] OpenRouter request threw — check OPENROUTER_API_KEY for stray whitespace/newlines:",
-      err,
-    );
-    return textStream(
+    console.error("[chat] OpenRouter request threw:", err);
+    return text(
       `Sorry — the assistant is unreachable right now. ${profile.chatbot.escalationNote}`,
     );
   }
@@ -114,7 +114,7 @@ export async function POST(req: Request) {
       `[chat] OpenRouter responded ${upstream.status} for model "${MODEL}":`,
       detail.slice(0, 500),
     );
-    return textStream(
+    return text(
       `Sorry — the assistant hit an error. ${profile.chatbot.escalationNote}`,
     );
   }
@@ -123,33 +123,38 @@ export async function POST(req: Request) {
   const decoder = new TextDecoder();
   let buffer = "";
 
-  const stream = new ReadableStream({
-    async pull(controller) {
-      const { done, value } = await reader.read();
-      if (done) {
-        controller.close();
-        return;
-      }
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split("\n");
-      buffer = lines.pop() ?? "";
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine.startsWith("data:")) continue;
-        const data = trimmedLine.slice(5).trim();
-        if (data === "[DONE]") {
-          controller.close();
-          return;
-        }
-        try {
-          const json = JSON.parse(data);
-          const delta = json?.choices?.[0]?.delta?.content;
-          if (typeof delta === "string" && delta.length) {
-            controller.enqueue(encoder.encode(delta));
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            const t = line.trim();
+            if (!t.startsWith("data:")) continue;
+            const data = t.slice(5).trim();
+            if (data === "[DONE]") {
+              controller.close();
+              return;
+            }
+            try {
+              const json = JSON.parse(data);
+              const delta = json?.choices?.[0]?.delta?.content;
+              if (typeof delta === "string" && delta.length) {
+                controller.enqueue(encoder.encode(delta));
+              }
+            } catch {
+              // ignore keep-alive / partial frames
+            }
           }
-        } catch {
-          // ignore keep-alive / partial frames
         }
+      } catch (err) {
+        console.error("[chat] stream error:", err);
+      } finally {
+        controller.close();
       }
     },
     cancel() {
