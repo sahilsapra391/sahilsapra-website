@@ -6,6 +6,7 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { Background } from "@/components/layout/Background";
 import { CustomCursor } from "@/components/layout/CustomCursor";
@@ -137,6 +138,7 @@ export default function RootLayout({
           <CustomCursor />
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
