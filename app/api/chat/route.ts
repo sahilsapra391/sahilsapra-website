@@ -1,4 +1,5 @@
 import { buildSystemPrompt } from "@/lib/system-prompt";
+import { retrieveContext } from "@/lib/retrieval";
 import { profile } from "@/lib/profile";
 import { limit } from "@/lib/ratelimit";
 
@@ -73,7 +74,10 @@ export async function POST(req: Request) {
     );
   }
 
-  // 4) stream from OpenRouter (OpenAI-compatible)
+  // 4) retrieve relevant passages from Sahil's writing (no-op if unconfigured)
+  const context = await retrieveContext(lastMsg.content);
+
+  // 5) stream from OpenRouter (OpenAI-compatible)
   let upstream: Response;
   try {
     upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -92,7 +96,7 @@ export async function POST(req: Request) {
         temperature: 0.6,
         max_tokens: 500,
         messages: [
-          { role: "system", content: buildSystemPrompt() },
+          { role: "system", content: buildSystemPrompt(context) },
           ...trimmed.map((m) => ({ role: m.role, content: m.content })),
         ],
       }),

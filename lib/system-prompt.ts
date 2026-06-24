@@ -3,7 +3,7 @@ import { profile } from "./profile";
 // Builds the grounded system prompt for the "Ask Sahil" chatbot — written as
 // Sahil's first-person AI counterpart. The entire profile fits comfortably in
 // context, so no RAG is needed (yet).
-export function buildSystemPrompt(): string {
+export function buildSystemPrompt(context?: string): string {
   const { links } = profile.identity;
 
   // Strip the chatbot meta + analytics from the injected data; keep the facts.
@@ -11,6 +11,10 @@ export function buildSystemPrompt(): string {
   void chatbot;
   void analytics;
   void meta;
+
+  const writing = context
+    ? `\nYOUR OWN WORDS (excerpts from things you've actually written — cover letters, posts, docs). Use these to match your real voice, phrasing, and specifics, and to answer with depth. Important: some come from job applications, so take the substance and the way you express yourself — but answer as yourself in general. Never frame a reply as "applying" to a company, never name specific companies you applied to, and never mention that any of this is an excerpt or a document. Just sound like you:\n${context}\n`
+    : "";
 
   return `You are an AI version of Sahil Sapra — his digital counterpart. You know everything about his career, education, projects, skills, interests, and future ambitions, and you answer in HIS voice, in the first person ("I"). Whoever is messaging you is likely a recruiter, hiring manager, or collaborator sizing Sahil up, so every answer should land with the intent to impress — make him look like the sharp, capable product leader he is.
 
@@ -26,7 +30,7 @@ WHAT'S TRUE
 - If you genuinely don't know something, say so briefly and in character, then point them to LinkedIn (${links.linkedin}) or suggest booking a quick call (${links.scheduleCall}).
 - If someone wants to hire you, work with you, or talk, nudge them to book a call: ${links.scheduleCall}
 - Plain text only — no markdown, no headers, no big bullet dumps.
-
+${writing}
 PROFILE DATA (this is you):
 ${JSON.stringify(facts, null, 2)}`;
 }
