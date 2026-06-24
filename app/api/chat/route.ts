@@ -2,7 +2,9 @@ import { buildSystemPrompt } from "@/lib/system-prompt";
 import { profile } from "@/lib/profile";
 import { limit } from "@/lib/ratelimit";
 
-export const runtime = "nodejs";
+// Edge runtime streams token-by-token reliably (unlike the Node serverless
+// runtime, which buffered the stream and timed out).
+export const runtime = "edge";
 export const maxDuration = 30;
 
 const MAX_CHARS = 1000; // per user message
@@ -11,6 +13,8 @@ const MAX_MESSAGES = 20; // per conversation
 const MODEL = (process.env.OPENROUTER_MODEL ?? "anthropic/claude-3.5-haiku").trim();
 
 type ClientMessage = { role: "user" | "assistant"; content: string };
+
+const encoder = new TextEncoder();
 
 function text(message: string, status = 200): Response {
   return new Response(message, {
@@ -69,11 +73,7 @@ export async function POST(req: Request) {
     );
   }
 
-  // 4) call OpenRouter (OpenAI-compatible). Non-streaming for reliability on the
-  //    Node serverless runtime, plus an abort timeout so the function can't hang.
-  const controller = new AbortController();
-  const abortTimer = setTimeout(() => controller.abort(), 25_000);
-
+  // 4) stream from OpenRouter (OpenAI-compatible)
   let upstream: Response;
   try {
     upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -88,25 +88,23 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: MODEL,
-        temperature: 0.4,
-        max_tokens: 400,
+        stream: true,
+        temperature: 0.5,
+        max_tokens: 700,
         messages: [
           { role: "system", content: buildSystemPrompt() },
           ...trimmed.map((m) => ({ role: m.role, content: m.content })),
         ],
       }),
-      signal: controller.signal,
     });
   } catch (err) {
-    clearTimeout(abortTimer);
-    console.error("[chat] OpenRouter request threw or timed out:", err);
+    console.error("[chat] OpenRouter request threw:", err);
     return text(
       `Sorry — the assistant is unreachable right now. ${profile.chatbot.escalationNote}`,
     );
   }
-  clearTimeout(abortTimer);
 
-  if (!upstream.ok) {
+  if (!upstream.ok || !upstream.body) {
     const detail = await upstream.text().catch(() => "");
     console.error(
       `[chat] OpenRouter responded ${upstream.status} for model "${MODEL}":`,
@@ -117,20 +115,53 @@ export async function POST(req: Request) {
     );
   }
 
-  let content = "";
-  try {
-    const data = await upstream.json();
-    const c = data?.choices?.[0]?.message?.content;
-    content = typeof c === "string" ? c.trim() : "";
-  } catch (err) {
-    console.error("[chat] failed to parse OpenRouter response:", err);
-  }
+  const reader = upstream.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
 
-  if (!content) {
-    return text(
-      `Sorry — I couldn't generate a reply just now. ${profile.chatbot.escalationNote}`,
-    );
-  }
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
+          for (const line of lines) {
+            const t = line.trim();
+            if (!t.startsWith("data:")) continue;
+            const data = t.slice(5).trim();
+            if (data === "[DONE]") {
+              controller.close();
+              return;
+            }
+            try {
+              const json = JSON.parse(data);
+              const delta = json?.choices?.[0]?.delta?.content;
+              if (typeof delta === "string" && delta.length) {
+                controller.enqueue(encoder.encode(delta));
+              }
+            } catch {
+              // ignore keep-alive / partial frames
+            }
+          }
+        }
+      } catch (err) {
+        console.error("[chat] stream error:", err);
+      } finally {
+        controller.close();
+      }
+    },
+    cancel() {
+      reader.cancel().catch(() => {});
+    },
+  });
 
-  return text(content);
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
+  });
 }

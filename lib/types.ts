@@ -30,6 +30,7 @@ export interface Identity {
   location: string;
   locationShort: string;
   summary: string;
+  about: string;
   openTo: string[];
   links: Links;
 }
