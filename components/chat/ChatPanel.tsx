@@ -23,6 +23,7 @@ export function ChatPanel({
   const [busy, setBusy] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const typeTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -31,6 +32,9 @@ export function ChatPanel({
 
   useEffect(() => {
     inputRef.current?.focus();
+    return () => {
+      if (typeTimer.current) clearInterval(typeTimer.current);
+    };
   }, []);
 
   async function send(raw?: string) {
@@ -44,11 +48,11 @@ export function ChatPanel({
     setAsked(true);
     setBusy(true);
 
-    const appendToLast = (chunk: string) =>
+    const setLastText = (t: string) =>
       setMessages((prev) => {
         const next = prev.slice();
         const last = { ...next[next.length - 1] };
-        last.text += chunk;
+        last.text = t;
         next[next.length - 1] = last;
         return next;
       });
@@ -60,6 +64,29 @@ export function ChatPanel({
         last.done = true;
         next[next.length - 1] = last;
         return next;
+      });
+    // The server returns the full reply; reveal it with a typing effect.
+    const typeOut = (full: string) =>
+      new Promise<void>((resolve) => {
+        const reduce = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        if (reduce) {
+          setLastText(full);
+          resolve();
+          return;
+        }
+        let i = 0;
+        if (typeTimer.current) clearInterval(typeTimer.current);
+        typeTimer.current = setInterval(() => {
+          i = Math.min(full.length, i + 3);
+          setLastText(full.slice(0, i));
+          if (i >= full.length) {
+            if (typeTimer.current) clearInterval(typeTimer.current);
+            typeTimer.current = null;
+            resolve();
+          }
+        }, 16);
       });
 
     try {
@@ -78,24 +105,14 @@ export function ChatPanel({
         );
         return;
       }
-      if (!res.ok || !res.body) {
+
+      const full = (await res.text()).trim();
+      if (!res.ok || !full) {
         finishLast(chatbot.escalationNote);
         return;
       }
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let got = false;
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        if (chunk) {
-          got = true;
-          appendToLast(chunk);
-        }
-      }
-      finishLast(got ? undefined : chatbot.escalationNote);
+      await typeOut(full);
+      finishLast();
     } catch {
       finishLast(chatbot.escalationNote);
     } finally {
