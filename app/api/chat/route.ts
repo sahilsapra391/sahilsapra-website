@@ -83,7 +83,9 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": profile.identity.links.website,
-        "X-Title": `${profile.identity.name} — Ask Sahil`,
+        // Header values must be Latin-1 (ASCII) — a non-ASCII char like an
+        // em-dash here makes fetch throw before the request is even sent.
+        "X-Title": "Ask Sahil - sahilsapra.com",
       },
       body: JSON.stringify({
         model: MODEL,
