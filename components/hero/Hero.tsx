@@ -126,11 +126,13 @@ export function Hero() {
           <Image
             src="/sahil.png"
             alt={`${identity.name}, ${identity.title}`}
-            width={232}
-            height={288}
+            width={600}
+            height={744}
             priority
-            quality={95}
-            sizes="232px"
+            quality={92}
+            // Display box is 232px, but request a much larger source so the photo
+            // stays razor-sharp on hi-DPI/retina screens.
+            sizes="600px"
             style={{
               display: "block",
               width: 232,

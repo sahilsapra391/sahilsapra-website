@@ -156,7 +156,7 @@ a {
    The Claude Design canvas is desktop. These rules carry it down to 320px.
 --------------------------------------------------------------------------- */
 .metrics-grid { grid-template-columns: repeat(3, 1fr); }
-.projects-grid { grid-template-columns: repeat(2, 1fr); }
+.projects-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
 .work-row { grid-template-columns: 160px 1fr; }
 .skill-row { grid-template-columns: 220px 1fr; }
 .stack-bottom { grid-template-columns: 1.4fr 1fr; }
@@ -170,7 +170,7 @@ a {
 @media (max-width: 720px) {
   .nav-links { display: none; }
   .nav-actions { margin-left: auto; }
-  .projects-grid { grid-template-columns: 1fr; }
+  .projects-cols { flex-direction: column; }
 }
 
 @media (max-width: 640px) {

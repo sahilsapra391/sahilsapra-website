@@ -1,12 +1,57 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import type { Chatbot } from "@/lib/types";
 import { logEvent } from "@/lib/analytics";
 
 type Msg = { role: "user" | "assistant"; text: string; done: boolean };
 
 const MAX_INPUT = 280;
+
+// Render message text with any URLs turned into clickable links. The Google
+// Calendar booking link and LinkedIn get friendly labels instead of raw URLs.
+function renderRich(text: string): ReactNode[] {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const out: ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+  let match: RegExpExecArray | null;
+  while ((match = urlRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) out.push(text.slice(lastIndex, match.index));
+    let url = match[0];
+    let trailing = "";
+    const punct = url.match(/[.,;:!?)\]]+$/);
+    if (punct) {
+      trailing = punct[0];
+      url = url.slice(0, -trailing.length);
+    }
+    const label = url.includes("calendar.app.google")
+      ? "Google Calendar Link"
+      : url.includes("linkedin.com")
+        ? "LinkedIn"
+        : url.replace(/^https?:\/\//, "");
+    out.push(
+      <a
+        key={`lnk-${key++}`}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: "var(--brand-soft)",
+          textDecoration: "underline",
+          wordBreak: "break-word",
+        }}
+      >
+        {label}
+      </a>,
+    );
+    if (trailing) out.push(trailing);
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) out.push(text.slice(lastIndex));
+  return out;
+}
 
 export function ChatPanel({
   chatbot,
@@ -246,19 +291,20 @@ export function ChatPanel({
                   whiteSpace: "pre-wrap",
                 }}
               >
-                {m.text}
-                <span
-                  style={{
-                    display: "inline-block",
-                    width: 6,
-                    height: 13,
-                    background: "var(--brand-soft)",
-                    marginLeft: 2,
-                    verticalAlign: "middle",
-                    opacity: m.done ? 0 : 1,
-                    animation: "ssBlink 1s step-end infinite",
-                  }}
-                />
+                {renderRich(m.text)}
+                {!m.done && (
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: 6,
+                      height: 13,
+                      background: "var(--brand-soft)",
+                      marginLeft: 2,
+                      verticalAlign: "middle",
+                      animation: "ssBlink 1s step-end infinite",
+                    }}
+                  />
+                )}
               </div>
             </div>
           ) : (

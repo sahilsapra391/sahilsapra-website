@@ -24,13 +24,31 @@ export function ProjectsSection() {
         </h2>
         <span style={{ flex: 1, height: 1, background: "var(--line)" }} />
       </div>
+      {/* Two independent columns so expanding a card only pushes cards in its
+          own column down — the other column stays put. */}
       <div
-        className="projects-grid"
-        style={{ display: "grid", gap: 18, marginTop: 30, alignItems: "start" }}
+        className="projects-cols"
+        style={{
+          display: "flex",
+          gap: 18,
+          marginTop: 30,
+          alignItems: "flex-start",
+        }}
       >
-        {profile.projects.map((p) => (
-          <ProjectCard key={p.name} project={p} />
-        ))}
+        <div className="projects-col">
+          {profile.projects
+            .filter((_, i) => i % 2 === 0)
+            .map((p) => (
+              <ProjectCard key={p.name} project={p} />
+            ))}
+        </div>
+        <div className="projects-col">
+          {profile.projects
+            .filter((_, i) => i % 2 === 1)
+            .map((p) => (
+              <ProjectCard key={p.name} project={p} />
+            ))}
+        </div>
       </div>
     </section>
   );

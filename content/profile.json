@@ -153,9 +153,9 @@
     }
   ],
   "skills": {
-    "Cloud & Infrastructure": ["AWS", "Azure", "GCP", "CloudFormation", "Docker", "Terraform", "Railway", "Vercel"],
+    "Cloud & Infrastructure": ["AWS", "Azure", "GCP", "CloudFormation", "Docker", "Terraform", "Railway", "Vercel", "Redis", "PostgreSQL"],
     "CI/CD & DevOps": ["Bitbucket", "Git", "AWS CodePipeline", "LaunchDarkly", "New Relic", "Observability", "Release Automation", "Feature Flags"],
-    "Languages & Frameworks": ["TypeScript", "Python", "Angular", "React", "Next.js", "Java", "Spring Boot", "NestJS", "Node.js", "PostgreSQL"],
+    "Languages & Frameworks": ["TypeScript", "Python", "Angular", "React", "Next.js", "Java", "Spring Boot", "NestJS", "Node.js"],
     "API Development": ["REST", "Swagger", "Postman", "GraphQL", "Apigee", "API Gateway", "Microservices", "Caching", "RxJS"],
     "AI & Product Tooling": ["Cursor", "Claude Code", "Codex", "GitHub Copilot", "Amazon Q", "Replit", "Jira", "Confluence", "Tableau", "Snowflake"]
   },
