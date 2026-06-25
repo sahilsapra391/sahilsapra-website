@@ -2,6 +2,7 @@ import { profile } from "@/lib/profile";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Wordmark } from "@/components/layout/Wordmark";
 import { ResumeButton } from "@/components/layout/ResumeButton";
+import { MobileNav } from "@/components/layout/MobileNav";
 
 const NAV_LINKS = [
   { label: "experience", href: "#work" },
@@ -38,47 +39,37 @@ export function Nav() {
       >
         <Wordmark />
 
-        <nav
-          className="nav-links"
-          style={{
-            marginLeft: "auto",
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-          }}
-        >
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="h-navlink"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 12.5,
-                letterSpacing: ".04em",
-                color: "var(--text-lo)",
-                textDecoration: "none",
-                padding: "8px 12px",
-                borderRadius: 7,
-                transition: "color .15s, background .15s",
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-
-        <div
-          className="nav-actions"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
+        {/* desktop: inline links + actions */}
+        <div className="nav-desktop">
+          <nav
+            style={{ display: "flex", alignItems: "center", gap: 4 }}
+          >
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="h-navlink"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12.5,
+                  letterSpacing: ".04em",
+                  color: "var(--text-lo)",
+                  textDecoration: "none",
+                  padding: "8px 12px",
+                  borderRadius: 7,
+                  transition: "color .15s, background .15s",
+                }}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
           <ResumeButton href={links.resume} />
           <ThemeToggle />
         </div>
+
+        {/* mobile: hamburger + full-screen menu */}
+        <MobileNav navLinks={NAV_LINKS} links={links} />
       </div>
     </header>
   );
