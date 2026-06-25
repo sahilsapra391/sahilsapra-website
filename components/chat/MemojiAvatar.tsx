@@ -1,28 +1,34 @@
 import Image from "next/image";
 
-// Sahil's transparent memoji, used as the "Ask Sahil" avatar. Rendered at the
-// source aspect (106×134) and centered in a square slot so it sits cleanly
-// wherever the old "SS" monogram did — no background.
-const RATIO = 106 / 134;
-
-export function MemojiAvatar({ size = 34 }: { size?: number }) {
+// Sahil's transparent memoji avatar for "Ask Sahil".
+// - default ("thinking", hand-on-chin) is used for the launcher, the panel
+//   header, the greeting, and a bot message while it's still streaming.
+// - done ("winking") is swapped in only on a finished answer's avatar.
+// object-fit: contain keeps either image undistorted regardless of its aspect.
+export function MemojiAvatar({
+  size = 34,
+  done = false,
+}: {
+  size?: number;
+  done?: boolean;
+}) {
+  const src = done ? "/sahil-memoji-done.png" : "/sahil-memoji.png";
   return (
     <span
       style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
+        position: "relative",
+        display: "inline-block",
         width: size,
         height: size,
         flexShrink: 0,
       }}
     >
       <Image
-        src="/sahil-memoji.png"
+        src={src}
         alt="Sahil"
-        width={Math.round(size * RATIO)}
-        height={size}
-        style={{ display: "block" }}
+        fill
+        sizes={`${size}px`}
+        style={{ objectFit: "contain" }}
       />
     </span>
   );

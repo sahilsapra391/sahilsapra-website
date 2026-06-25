@@ -244,7 +244,7 @@ export function ChatPanel({
         {messages.map((m, i) =>
           m.role === "assistant" ? (
             <div key={i} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
-              <MemojiAvatar size={28} />
+              <MemojiAvatar size={28} done={m.done} />
               <div
                 style={{
                   maxWidth: "80%",
