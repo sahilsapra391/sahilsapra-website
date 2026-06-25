@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { Chatbot } from "@/lib/types";
 import { logEvent } from "@/lib/analytics";
+import { MemojiAvatar } from "./MemojiAvatar";
 
 type Msg = { role: "user" | "assistant"; text: string; done: boolean };
 
@@ -181,23 +182,7 @@ export function ChatPanel({
           background: "var(--surface)",
         }}
       >
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 34,
-            height: 34,
-            borderRadius: 9,
-            background: "var(--brand)",
-            color: "#fff",
-            fontFamily: "var(--font-grotesk)",
-            fontWeight: 700,
-            fontSize: 13,
-          }}
-        >
-          SS
-        </span>
+        <MemojiAvatar size={36} />
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 13.5, fontWeight: 600, color: "var(--text-hi)" }}>
             {chatbot.displayName}
@@ -259,25 +244,7 @@ export function ChatPanel({
         {messages.map((m, i) =>
           m.role === "assistant" ? (
             <div key={i} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
-              <span
-                style={{
-                  flex: "0 0 auto",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 26,
-                  height: 26,
-                  borderRadius: 7,
-                  background: "var(--surface-2)",
-                  border: "1px solid var(--line)",
-                  fontFamily: "var(--font-grotesk)",
-                  fontWeight: 700,
-                  fontSize: 10,
-                  color: "var(--brand-soft)",
-                }}
-              >
-                SS
-              </span>
+              <MemojiAvatar size={28} />
               <div
                 style={{
                   maxWidth: "80%",
