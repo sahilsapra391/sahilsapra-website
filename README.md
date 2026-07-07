@@ -11,10 +11,6 @@ A fast, accessible portfolio with an AI chatbot that answers questions about my 
 
 </div>
 
----
-
-> _Add a screenshot or short GIF of the hero here once deployed._
-
 ## Overview
 
 A single-page Next.js portfolio presenting my experience, projects, skills, and certifications, plus **"Ask Sahil"** — an AI agent grounded strictly in my real profile data that recruiters and hiring managers can question directly. All site content lives in one JSON file, so the site stays trivial to update.
