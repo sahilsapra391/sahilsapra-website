@@ -7,8 +7,6 @@ A fast, accessible portfolio with an AI chatbot that answers questions about my 
 
 [**Live →**](https://sahilsapra.com) · [LinkedIn](https://www.linkedin.com/in/sahil-sapra/)
 
-`build: passing`
-
 </div>
 
 ## Overview
