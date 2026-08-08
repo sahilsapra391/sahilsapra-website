@@ -1,22 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Project } from "@/lib/types";
 import { logEvent } from "@/lib/analytics";
 
 export function ProjectCard({ project }: { project: Project }) {
-  const [expanded, setExpanded] = useState(false);
+  // Two ways a card opens. Hovering is a peek: it closes itself the moment the
+  // pointer leaves. Clicking pins it, and a pinned card ignores the pointer
+  // entirely. `suppressed` stops a click-to-close from being undone instantly
+  // by the pointer that is still sitting on the card.
+  const [pinned, setPinned] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [suppressed, setSuppressed] = useState(false);
+  const [canHover, setCanHover] = useState(false);
+
+  // Touch devices fire mouseenter on tap and never fire the matching leave,
+  // which would strand cards open. Peeking is desktop-pointer only.
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setCanHover(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const peeking = canHover && hovered && !suppressed;
+  const expanded = pinned || peeking;
 
   function toggle() {
-    setExpanded((prev) => {
-      if (!prev) logEvent("project_expanded", { project: project.name });
-      return !prev;
-    });
+    if (pinned) {
+      setPinned(false);
+      setSuppressed(true);
+      return;
+    }
+    logEvent("project_expanded", { project: project.name });
+    setPinned(true);
+    setSuppressed(false);
   }
 
   return (
     <div
       className="h-card"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => {
+        setHovered(false);
+        setSuppressed(false);
+      }}
       style={{
         border: "1px solid var(--line)",
         borderRadius: 8,
@@ -106,11 +135,8 @@ export function ProjectCard({ project }: { project: Project }) {
         }}
       >
         <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <p
+          <div
             style={{
-              fontSize: 13.5,
-              lineHeight: 1.6,
-              color: "var(--text-hi)",
               margin: "0 0 14px",
               padding: "12px 14px",
               borderLeft: "2px solid var(--brand)",
@@ -120,8 +146,55 @@ export function ProjectCard({ project }: { project: Project }) {
               transition: "opacity .3s ease",
             }}
           >
-            {project.detail}
-          </p>
+            <p
+              style={{
+                fontSize: 13.5,
+                lineHeight: 1.6,
+                color: "var(--text-hi)",
+                margin: 0,
+              }}
+            >
+              {project.detail}
+            </p>
+            {project.links && project.links.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 14,
+                  marginTop: 12,
+                }}
+              >
+                {project.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // collapsed panel is still in the DOM; keep it out of the
+                    // tab order until it's actually visible
+                    tabIndex={expanded ? 0 : -1}
+                    onClick={() =>
+                      logEvent("project_link_clicked", {
+                        project: project.name,
+                        link: l.label,
+                      })
+                    }
+                    className="h-projectlink"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11.5,
+                      color: "var(--brand-soft)",
+                      textDecoration: "none",
+                      transition: "color .15s",
+                    }}
+                  >
+                    {l.label} ↗
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -179,7 +252,7 @@ export function ProjectCard({ project }: { project: Project }) {
         >
           ▸
         </span>
-        {expanded ? "less" : "details"}
+        {pinned ? "less" : peeking ? "keep open" : "details"}
       </button>
     </div>
   );

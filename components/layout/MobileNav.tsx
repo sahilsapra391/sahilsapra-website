@@ -9,6 +9,8 @@ import { ResumeButton } from "@/components/layout/ResumeButton";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { EmailButton } from "@/components/ui/EmailButton";
 import { LinkedInIcon, GitHubIcon, YouTubeIcon } from "@/components/ui/icons";
+import { usePathname, useRouter } from "next/navigation";
+import { sectionHref } from "@/lib/nav";
 import { logEvent } from "@/lib/analytics";
 
 type NavLink = { label: string; href: string };
@@ -35,6 +37,8 @@ export function MobileNav({
 }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   useEffect(() => setMounted(true), []);
 
   // lock body scroll while the menu is open
@@ -57,14 +61,20 @@ export function MobileNav({
     };
   }, []);
 
-  // close, then smooth-scroll to the section once the scroll lock has released
+  // Close first, then move — both branches wait out the body scroll lock, which
+  // otherwise swallows the scroll. On the landing page that's a smooth scroll to
+  // the section; anywhere else it's a route change home, and the Next router
+  // handles landing on the anchor.
   const go = (href: string) => {
     setOpen(false);
-    const id = href.slice(1);
     window.setTimeout(() => {
-      document
-        .getElementById(id)
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (href.startsWith("#")) {
+        document
+          .getElementById(href.slice(1))
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        router.push(href);
+      }
     }, 90);
   };
 
@@ -109,10 +119,10 @@ export function MobileNav({
           {navLinks.map((l, i) => (
             <a
               key={l.href}
-              href={l.href}
+              href={sectionHref(pathname, l.href)}
               onClick={(e) => {
                 e.preventDefault();
-                go(l.href);
+                go(sectionHref(pathname, l.href));
               }}
               style={{ transitionDelay: open ? `${0.05 + i * 0.06}s` : "0s" }}
             >
