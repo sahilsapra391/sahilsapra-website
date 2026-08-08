@@ -21,7 +21,6 @@ export function ChatLauncher({ onOpen }: { onOpen: () => void }) {
         background: "var(--surface)",
         border: "1px solid var(--line)",
         boxShadow: "0 14px 40px rgba(0,0,0,.4)",
-        cursor: "pointer",
         transition: "transform .15s, border-color .15s",
       }}
     >

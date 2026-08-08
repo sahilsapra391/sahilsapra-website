@@ -8,7 +8,7 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { Background } from "@/components/layout/Background";
-import { CustomCursor } from "@/components/layout/CustomCursor";
+import { CursorGlow } from "@/components/layout/CursorGlow";
 import { profile } from "@/lib/profile";
 import "./globals.css";
 
@@ -53,7 +53,9 @@ export const metadata: Metadata = {
   creator: identity.name,
   keywords: [
     identity.name,
+    "Product Manager",
     "Technical Product Manager",
+    "Business Analyst",
     "Product Owner",
     "QA Automation",
     "Release Quality",
@@ -135,7 +137,7 @@ export default function RootLayout({
         >
           <Background />
           {children}
-          <CustomCursor />
+          <CursorGlow />
         </ThemeProvider>
         <Analytics />
       </body>

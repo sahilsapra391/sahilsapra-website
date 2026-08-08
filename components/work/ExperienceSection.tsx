@@ -38,7 +38,6 @@ const toggleBtn = (active: boolean): React.CSSProperties => ({
   borderRadius: 999,
   fontFamily: "var(--font-mono)",
   fontSize: 12,
-  cursor: "pointer",
   background: active ? "var(--brand)" : "transparent",
   color: active ? "#fff" : "var(--text-lo)",
   transition: "all .15s",

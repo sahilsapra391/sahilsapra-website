@@ -221,7 +221,6 @@ export function ChatPanel({
             background: "var(--bg)",
             color: "var(--text-lo)",
             fontSize: 15,
-            cursor: "pointer",
             transition: "color .15s",
           }}
         >
@@ -317,7 +316,6 @@ export function ChatPanel({
                 background: "var(--surface)",
                 color: "var(--text-hi)",
                 fontSize: 12,
-                cursor: "pointer",
                 textAlign: "left",
                 transition: "border-color .15s, background .15s",
               }}

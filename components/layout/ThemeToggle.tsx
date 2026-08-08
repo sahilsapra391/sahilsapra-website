@@ -69,7 +69,6 @@ export function ThemeToggle() {
         color: "var(--text-lo)",
         fontFamily: "var(--font-mono)",
         fontSize: 11.5,
-        cursor: "pointer",
         transition: "border-color .15s, color .15s",
       }}
     >

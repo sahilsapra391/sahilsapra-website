@@ -68,7 +68,6 @@ export function HeroActions({ links }: { links: Links }) {
           color: "var(--text-hi)",
           fontSize: 14,
           fontWeight: 500,
-          cursor: "pointer",
           transition: "border-color .15s",
         }}
       >
