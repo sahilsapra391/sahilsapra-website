@@ -129,6 +129,67 @@ export function ProjectCard({ project }: { project: Project }) {
 
       <div
         style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 6,
+          marginBottom: 16,
+          marginTop: "auto",
+        }}
+      >
+        {project.tags.map((t) => (
+          <span
+            key={t}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10.5,
+              color: "var(--text-lo)",
+              padding: "3px 8px",
+              border: "1px solid var(--line)",
+              borderRadius: 5,
+            }}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <button
+        onClick={toggle}
+        aria-expanded={expanded}
+        className="h-toggle"
+        style={{
+          alignSelf: "flex-start",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 7,
+          background: "none",
+          border: "none",
+          color: "var(--text-lo)",
+          fontFamily: "var(--font-mono)",
+          fontSize: 11.5,
+          transition: "color .15s",
+        }}
+      >
+        <span
+          style={{
+            color: "var(--brand-soft)",
+            display: "inline-block",
+            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+            transition: "transform .3s cubic-bezier(.4, 0, .2, 1)",
+          }}
+        >
+          ▸
+        </span>
+        {pinned ? "less" : peeking ? "keep open" : "details"}
+      </button>
+
+      {/* Below the toggle on purpose. Opening it above would insert ~200px
+          between the blurb and the button, and since cards also open on hover,
+          that slides the button out from under a pointer that never moved: the
+          cursor silently flips from a hand to an I-beam while you hold still.
+          Growing downward keeps everything above it anchored. */}
+      <div
+        style={{
           display: "grid",
           gridTemplateRows: expanded ? "1fr" : "0fr",
           transition: "grid-template-rows .38s cubic-bezier(.4, 0, .2, 1)",
@@ -137,7 +198,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <div style={{ overflow: "hidden", minHeight: 0 }}>
           <div
             style={{
-              margin: "0 0 14px",
+              margin: "14px 0 0",
               padding: "12px 14px",
               borderLeft: "2px solid var(--brand)",
               background: "var(--surface-2)",
@@ -197,62 +258,6 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 6,
-          marginBottom: 16,
-          marginTop: "auto",
-        }}
-      >
-        {project.tags.map((t) => (
-          <span
-            key={t}
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 10.5,
-              color: "var(--text-lo)",
-              padding: "3px 8px",
-              border: "1px solid var(--line)",
-              borderRadius: 5,
-            }}
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      <button
-        onClick={toggle}
-        aria-expanded={expanded}
-        className="h-toggle"
-        style={{
-          alignSelf: "flex-start",
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 7,
-          background: "none",
-          border: "none",
-          color: "var(--text-lo)",
-          fontFamily: "var(--font-mono)",
-          fontSize: 11.5,
-          transition: "color .15s",
-        }}
-      >
-        <span
-          style={{
-            color: "var(--brand-soft)",
-            display: "inline-block",
-            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-            transition: "transform .3s cubic-bezier(.4, 0, .2, 1)",
-          }}
-        >
-          ▸
-        </span>
-        {pinned ? "less" : peeking ? "keep open" : "details"}
-      </button>
     </div>
   );
 }
