@@ -161,7 +161,6 @@ export function MobileNav({
             >
               <GitHubIcon size={18} />
             </TrackedLink>
-            <EmailButton email={links.email} style={social} iconSize={18} />
             <TrackedLink
               href={links.youtube}
               event="youtube_clicked"
@@ -171,6 +170,7 @@ export function MobileNav({
             >
               <YouTubeIcon size={18} />
             </TrackedLink>
+            <EmailButton email={links.email} style={social} iconSize={18} />
           </div>
           </div>
           </div>,
