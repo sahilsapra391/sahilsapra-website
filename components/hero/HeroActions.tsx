@@ -3,7 +3,7 @@
 import type { Links } from "@/lib/types";
 import { TrackedLink } from "@/components/ui/TrackedLink";
 import { EmailButton } from "@/components/ui/EmailButton";
-import { LinkedInIcon, GitHubIcon } from "@/components/ui/icons";
+import { LinkedInIcon, GitHubIcon, YouTubeIcon } from "@/components/ui/icons";
 import { useChat } from "@/components/chat/ChatProvider";
 
 const circle: React.CSSProperties = {
@@ -103,6 +103,16 @@ export function HeroActions({ links }: { links: Links }) {
           style={circle}
         >
           <GitHubIcon />
+        </TrackedLink>
+        <TrackedLink
+          href={links.youtube}
+          event="youtube_clicked"
+          newTab
+          ariaLabel="YouTube"
+          className="h-social"
+          style={circle}
+        >
+          <YouTubeIcon />
         </TrackedLink>
         <EmailButton email={links.email} className="h-social" style={circle} />
       </div>

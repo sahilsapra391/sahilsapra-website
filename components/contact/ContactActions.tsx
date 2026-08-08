@@ -78,12 +78,6 @@ export function ContactActions({ links }: { links: Links }) {
         >
           <GitHubIcon size={18} />
         </TrackedLink>
-        <EmailButton
-          email={links.email}
-          className="h-contact-social"
-          style={square}
-          iconSize={18}
-        />
         <TrackedLink
           href={links.youtube}
           event="youtube_clicked"
@@ -94,6 +88,12 @@ export function ContactActions({ links }: { links: Links }) {
         >
           <YouTubeIcon size={18} />
         </TrackedLink>
+        <EmailButton
+          email={links.email}
+          className="h-contact-social"
+          style={square}
+          iconSize={18}
+        />
       </div>
     </div>
   );
