@@ -238,7 +238,6 @@ export function ProjectCard({ project }: { project: Project }) {
           color: "var(--text-lo)",
           fontFamily: "var(--font-mono)",
           fontSize: 11.5,
-          cursor: "pointer",
           transition: "color .15s",
         }}
       >

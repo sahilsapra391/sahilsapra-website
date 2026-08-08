@@ -39,7 +39,7 @@ export function EmailButton({
         onClick={copy}
         aria-label="Copy email address"
         className={className}
-        style={{ background: "transparent", cursor: "pointer", ...style }}
+        style={{ background: "transparent", ...style }}
       >
         <MailIcon size={iconSize} />
       </button>

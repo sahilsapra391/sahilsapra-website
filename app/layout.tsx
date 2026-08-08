@@ -8,7 +8,7 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { Background } from "@/components/layout/Background";
-import { CustomCursor } from "@/components/layout/CustomCursor";
+import { CursorGlow } from "@/components/layout/CursorGlow";
 import { profile } from "@/lib/profile";
 import "./globals.css";
 
@@ -135,7 +135,7 @@ export default function RootLayout({
         >
           <Background />
           {children}
-          <CustomCursor />
+          <CursorGlow />
         </ThemeProvider>
         <Analytics />
       </body>
