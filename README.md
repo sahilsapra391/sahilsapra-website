@@ -5,15 +5,9 @@
 **Personal site of Sahil Sapra — Technical Product Manager.**
 A fast, accessible portfolio with an AI chatbot that answers questions about my work — built like the release pipelines I manage: instrumented, evidence-backed, and green.
 
-[**Live →**](https://sahilsapra.com) · [LinkedIn](https://www.linkedin.com/in/sahil-sapra/)
-
-`build: passing`
+[**Live**](https://sahilsapra.com) → [LinkedIn](https://www.linkedin.com/in/sahil-sapra/)
 
 </div>
-
----
-
-> _Add a screenshot or short GIF of the hero here once deployed._
 
 ## Overview
 
