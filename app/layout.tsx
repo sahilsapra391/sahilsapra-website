@@ -53,7 +53,9 @@ export const metadata: Metadata = {
   creator: identity.name,
   keywords: [
     identity.name,
+    "Product Manager",
     "Technical Product Manager",
+    "Business Analyst",
     "Product Owner",
     "QA Automation",
     "Release Quality",
