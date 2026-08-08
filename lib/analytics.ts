@@ -12,6 +12,8 @@ export type AnalyticsEvent =
   | "email_clicked"
   | "youtube_clicked"
   | "project_expanded"
+  | "project_link_clicked"
+  | "all_projects_clicked"
   | "theme_toggled";
 
 export function logEvent(

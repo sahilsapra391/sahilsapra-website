@@ -1,10 +1,16 @@
 import { profile } from "@/lib/profile";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectGrid } from "./ProjectGrid";
+import { ViewAllProjectsLink } from "./ViewAllProjectsLink";
+
+// The landing page shows a curated slice; /projects has the rest.
+const FEATURED_COUNT = 6;
 
 export function ProjectsSection() {
+  const featured = profile.projects.slice(0, FEATURED_COUNT);
   return (
     <section id="projects" style={{ padding: "64px 0 24px", scrollMarginTop: 88 }}>
       <div
+        className="section-head"
         style={{
           display: "flex",
           alignItems: "center",
@@ -22,34 +28,13 @@ export function ProjectsSection() {
         >
           featured projects
         </h2>
-        <span style={{ flex: 1, height: 1, background: "var(--line)" }} />
+        <span
+          className="section-rule"
+          style={{ flex: 1, height: 1, background: "var(--line)" }}
+        />
+        <ViewAllProjectsLink count={profile.projects.length} />
       </div>
-      {/* Two independent columns so expanding a card only pushes cards in its
-          own column down — the other column stays put. */}
-      <div
-        className="projects-cols"
-        style={{
-          display: "flex",
-          gap: 18,
-          marginTop: 30,
-          alignItems: "flex-start",
-        }}
-      >
-        <div className="projects-col">
-          {profile.projects
-            .filter((_, i) => i % 2 === 0)
-            .map((p) => (
-              <ProjectCard key={p.name} project={p} />
-            ))}
-        </div>
-        <div className="projects-col">
-          {profile.projects
-            .filter((_, i) => i % 2 === 1)
-            .map((p) => (
-              <ProjectCard key={p.name} project={p} />
-            ))}
-        </div>
-      </div>
+      <ProjectGrid projects={featured} />
     </section>
   );
 }

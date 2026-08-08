@@ -2,6 +2,7 @@ import { profile } from "@/lib/profile";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Wordmark } from "@/components/layout/Wordmark";
 import { ResumeButton } from "@/components/layout/ResumeButton";
+import { NavLinks } from "@/components/layout/NavLinks";
 import { MobileNav } from "@/components/layout/MobileNav";
 
 const NAV_LINKS = [
@@ -41,29 +42,7 @@ export function Nav() {
 
         {/* desktop: inline links + actions */}
         <div className="nav-desktop">
-          <nav
-            style={{ display: "flex", alignItems: "center", gap: 4 }}
-          >
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="h-navlink"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 12.5,
-                  letterSpacing: ".04em",
-                  color: "var(--text-lo)",
-                  textDecoration: "none",
-                  padding: "8px 12px",
-                  borderRadius: 7,
-                  transition: "color .15s, background .15s",
-                }}
-              >
-                {l.label}
-              </a>
-            ))}
-          </nav>
+          <NavLinks links={NAV_LINKS} />
           <ResumeButton href={links.resume} />
           <ThemeToggle />
         </div>

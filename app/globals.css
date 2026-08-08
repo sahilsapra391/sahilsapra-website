@@ -144,6 +144,7 @@ a {
 }
 .h-chip:hover { border-color: var(--brand); }
 .h-toggle:hover { color: var(--text-hi); }
+.h-projectlink:hover { color: var(--text-hi); }
 .h-contact-social:hover { border-color: var(--brand); color: var(--brand-soft); }
 .h-launcher:hover { transform: translateY(-2px); border-color: var(--brand); }
 .h-suggestion:hover { border-color: var(--brand); background: var(--surface-2); }
@@ -249,6 +250,8 @@ a {
   .skill-row { grid-template-columns: 1fr; gap: 10px; }
   .areas-grid { grid-template-columns: 1fr; }
   .hero-grid { gap: 36px; }
+  /* headline + rule on one line, the "see all" pill drops below it */
+  .section-head { flex-wrap: wrap; row-gap: 12px; }
 }
 
 @media (max-width: 420px) {

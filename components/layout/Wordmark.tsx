@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 // The nav wordmark morphs from the playful "heyo whatsup 👋" into "Sahil Sapra"
 // once the hero name has scrolled completely past the sticky nav, and morphs
 // back on the way up. Driven by an IntersectionObserver on the hero <h1>.
+// Off the landing page there is no hero, so it just settles on the name.
 export function Wordmark() {
-  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(!onHome);
 
   useEffect(() => {
     const target = document.getElementById("hero-name");
@@ -38,8 +42,8 @@ export function Wordmark() {
 
   return (
     <a
-      href="#top"
-      aria-label="Sahil Sapra — back to top"
+      href={onHome ? "#top" : "/"}
+      aria-label={onHome ? "Sahil Sapra — back to top" : "Sahil Sapra — home"}
       style={{ textDecoration: "none", color: "var(--text-hi)" }}
     >
       <span style={{ display: "inline-grid", alignItems: "center" }}>

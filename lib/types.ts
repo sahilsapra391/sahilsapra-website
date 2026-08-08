@@ -76,6 +76,11 @@ export interface Education {
   coursework: string[];
 }
 
+export interface ProjectLink {
+  label: string;
+  href: string;
+}
+
 export interface Project {
   name: string;
   year: string;
@@ -84,6 +89,8 @@ export interface Project {
   tags: string[];
   blurb: string;
   detail: string;
+  // Live site / repo, shown inside the expanded detail panel.
+  links?: ProjectLink[];
 }
 
 export interface Chatbot {
