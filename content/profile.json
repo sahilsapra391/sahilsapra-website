@@ -176,7 +176,7 @@
       "name": "Skeptic",
       "year": "2026 – Present",
       "role": "Solo Build",
-      "metric": "100 active users",
+      "metric": "40 active users",
       "tags": ["Next.js", "FastAPI", "Options Data", "LLM"],
       "blurb": "Describe a trading strategy in plain English and find out whether it actually works before you put real money behind it.",
       "detail": "Most of the work happens after the backtest. It re-runs your strategy on data it has never seen, checks it across market conditions, and flags when a few lucky trades are carrying the result. Thin evidence gets called thin. A live trading copilot is next on the roadmap.",
