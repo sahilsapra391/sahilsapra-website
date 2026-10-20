@@ -14,7 +14,7 @@
     "location": "Charlotte, NC",
     "locationShort": "charlotte, nc",
     "summary": "Technical product manager with hands-on experience leading aviation B2B SaaS and AI-powered platform initiatives across product strategy, quality engineering, enterprise integrations, and scalable software delivery. Track record of driving product-market fit, accelerating go-to-market execution, growing ARR, and delivering operational efficiency through automation and AI-enabled workflows. Strong in Agile product management, CI/CD modernization, release control via feature flags, QA automation, and clear technical writing.",
-    "about": "Sahil is a technical product manager who works at the intersection of product, engineering, and quality. He is currently Co-Founder & Head of Product at SpecHawk, where he is building an AI-powered, deploy-aware no-code agentic QA platform for SaaS teams. It maps staging environments, generates and runs test cases, validates Jira tickets, captures screenshot evidence, and schedules releases; he secured four design partners, shipped the MVP, advanced V2/V3 (a Security Hub for dependency risk, GitHub integration, a developer CLI, credit-based pricing), and raised pre-seed capital. Before SpecHawk he spent two years at CAMP Systems International as a Technical Product Manager, best known for migrating 75 enterprise aviation customers onto TFBO Next-Gen with zero operational downtime while ARR grew 104% year over year, lifting QA test coverage from 62% to 81%, leading a monolith-to-microservices re-architecture that cut latency 68%, and modernizing CI/CD with LaunchDarkly to decouple deploy from release and raise release frequency 400%. Earlier, roles at World Kinect (IT Business Analyst and BI Intern, building Tableau/Snowflake analytics) and a summer at Keiretsu Forum (a Python startup due-diligence classifier) shaped his data foundation. He holds a B.S. in Quantitative Economics from Miami University (co-major in Analytics, minor in CS) and is pursuing an M.S. in Computer Systems with an AI specialization at Indiana Wesleyan University. He is based in Charlotte, NC, and is open to Product Manager, Technical PM, Business Analyst, and Product Owner roles in the US and India. His throughline is release quality. He likes shipping software that is reliable, instrumented, and evidence-backed. (Sahil: expand this paragraph with anything else you want the assistant to know: working style, interests, what you're looking for in your next role, etc.)",
+    "about": "Sahil is a technical product manager who works at the intersection of product, engineering, and quality. He is currently Founder of SpecHawk, where he is building an AI-powered, deploy-aware no-code agentic QA platform for SaaS teams. It maps staging environments, generates and runs test cases, validates Jira tickets, captures screenshot evidence, and schedules releases; he secured four design partners, shipped the MVP, advanced V2/V3 (a Security Hub for dependency risk, GitHub integration, a developer CLI, credit-based pricing), and raised pre-seed capital. Before SpecHawk he spent two years at CAMP Systems International as a Technical Product Manager, best known for migrating 75 enterprise aviation customers onto TFBO Next-Gen with zero operational downtime while ARR grew 104% year over year, lifting QA test coverage from 62% to 81%, leading a monolith-to-microservices re-architecture that cut latency 68%, and modernizing CI/CD with LaunchDarkly to decouple deploy from release and raise release frequency 400%. Earlier, roles at World Kinect (IT Business Analyst and BI Intern, building Tableau/Snowflake analytics) and a summer at Keiretsu Forum (a Python startup due-diligence classifier) shaped his data foundation. He holds a B.S. in Quantitative Economics from Miami University (co-major in Analytics, minor in CS) and is pursuing an M.S. in Computer Systems with an AI specialization at Indiana Wesleyan University. He is based in Charlotte, NC, and is open to Product Manager, Technical PM, Business Analyst, and Product Owner roles in the US and India. His throughline is release quality. He likes shipping software that is reliable, instrumented, and evidence-backed. (Sahil: expand this paragraph with anything else you want the assistant to know: working style, interests, what you're looking for in your next role, etc.)",
     "openTo": [
       "Product Manager (US & India)",
       "Technical Product Manager",
@@ -49,7 +49,7 @@
       "current": true,
       "roles": [
         {
-          "title": "Co-Founder & Head of Product",
+          "title": "Founder",
           "dates": "Jun 2026 – Present",
           "summary": "Directed an AI-powered, deploy-aware no-code agentic QA platform for SaaS: automated staging-environment mapping, test-case generation, execution, Jira validation, screenshot evidence, and release scheduling.",
           "bullets": [
@@ -173,13 +173,41 @@
   ],
   "projects": [
     {
+      "name": "Rent8",
+      "year": "2026",
+      "role": "Solo Build",
+      "metric": "WhatsApp reminders",
+      "tags": ["Next.js", "PostgreSQL", "Better Auth", "Cloudflare R2"],
+      "blurb": "A calm home for a family's rent, properties, and agreements. See who's paid and what needs attention, without another spreadsheet.",
+      "detail": "Started because my family ran our rental properties out of one sprawling Google Sheet, past tenants highlighted in red. My parents needed to see who'd paid, on their phones, in five seconds. That turned into Rent8: shared household access, email and WhatsApp reminders, and an importer that reads the old sheet, red rows and all.",
+      "url": "https://www.rent8.us/",
+      "links": [
+        { "label": "rent8.us", "href": "https://www.rent8.us/" }
+      ]
+    },
+    {
+      "name": "Jobby",
+      "year": "2026",
+      "role": "Solo Build",
+      "metric": "100+ applications submitted",
+      "tags": ["AI Agents", "Claude Code", "Neon", "Cloudflare"],
+      "blurb": "I stopped applying to jobs myself. Jobby finds roles, writes a tailored resume and cover letter for each one, and submits the form.",
+      "detail": "Built in the middle of my own job hunt, when filling out the same forms by hand stopped scaling. It now watches 20 sources and 14,000+ open roles. Every claim on a generated resume has to trace back to something I actually wrote, and where it can't answer honestly, it stops and asks.",
+      "url": "https://www.jobby.fyi/",
+      "links": [
+        { "label": "jobby.fyi", "href": "https://www.jobby.fyi/" },
+        { "label": "github", "href": "https://github.com/sahilsapra391/jobby-auto-apply" }
+      ]
+    },
+    {
       "name": "Skeptic",
-      "year": "2026 – Present",
+      "year": "2026",
       "role": "Solo Build",
       "metric": "40 active users",
       "tags": ["Next.js", "FastAPI", "Options Data", "LLM"],
       "blurb": "Describe a trading strategy in plain English and find out whether it actually works before you put real money behind it.",
       "detail": "Most of the work happens after the backtest. It re-runs your strategy on data it has never seen, checks it across market conditions, and flags when a few lucky trades are carrying the result. Thin evidence gets called thin. A live trading copilot is next on the roadmap.",
+      "url": "https://www.skeptic.fyi/",
       "links": [
         { "label": "skeptic.fyi", "href": "https://www.skeptic.fyi/" },
         { "label": "github", "href": "https://github.com/sahilsapra391/skeptic" }
@@ -195,19 +223,6 @@
       "detail": "Next.js on Vercel. Answers retrieve against my own writing in Upstash Vector, rate-limited through Upstash Redis. Nothing gets generated without a source document behind it. Strip the keys and it still builds and ships as a static site.",
       "links": [
         { "label": "github", "href": "https://github.com/sahilsapra391/sahilsapra-website" }
-      ]
-    },
-    {
-      "name": "Skeptic X",
-      "year": "2026",
-      "role": "Solo Build",
-      "metric": "~20 automated posts/day",
-      "tags": ["Cloudflare Workers", "D1", "LLM", "Market Data"],
-      "blurb": "A market-intelligence desk that runs itself. It watches official financial filings all day and turns what it finds into short, publishable commentary.",
-      "detail": "Pulls from 59 official sources, SEC filings and congressional trading disclosures among them, then ranks what actually matters that day. One rule shaped the build: if a number did not come out of the filing, the post does not mention it. Nothing secondhand, nothing rounded to read better.",
-      "links": [
-        { "label": "@SkepticTradess", "href": "https://x.com/SkepticTradess" },
-        { "label": "github", "href": "https://github.com/sahilsapra391/skeptic-persona" }
       ]
     },
     {
@@ -227,6 +242,19 @@
       "tags": ["Crypto", "Fund Mgmt", "Tokenomics", "IPS"],
       "blurb": "Co-founded a student-run, university-funded cryptocurrency investment fund.",
       "detail": "Founded with three other students; authored the investment thesis, IPS, and risk policy. Taught the university blockchain-basics course as an appointed instructor for the 2021–22 catalog."
+    },
+    {
+      "name": "Skeptic X",
+      "year": "2026",
+      "role": "Solo Build",
+      "metric": "~20 automated posts/day",
+      "tags": ["Cloudflare Workers", "D1", "LLM", "Market Data"],
+      "blurb": "A market-intelligence desk that runs itself. It watches official financial filings all day and turns what it finds into short, publishable commentary.",
+      "detail": "Pulls from 59 official sources, SEC filings and congressional trading disclosures among them, then ranks what actually matters that day. One rule shaped the build: if a number did not come out of the filing, the post does not mention it. Nothing secondhand, nothing rounded to read better.",
+      "links": [
+        { "label": "@SkepticTradess", "href": "https://x.com/SkepticTradess" },
+        { "label": "github", "href": "https://github.com/sahilsapra391/skeptic-persona" }
+      ]
     },
     {
       "name": "Tableau Analytics & ETL Automation",
