@@ -89,6 +89,9 @@ export interface Project {
   tags: string[];
   blurb: string;
   detail: string;
+  // Live product. When set, the card title links straight to it, the same
+  // way company names do in the experience section.
+  url?: string;
   // Live site / repo, shown inside the expanded detail panel.
   links?: ProjectLink[];
 }

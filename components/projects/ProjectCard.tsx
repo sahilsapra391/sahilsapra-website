@@ -104,7 +104,33 @@ export function ProjectCard({ project }: { project: Project }) {
           marginBottom: 5,
         }}
       >
-        {project.name}
+        {project.url ? (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              logEvent("project_link_clicked", {
+                project: project.name,
+                link: "title",
+              })
+            }
+            className="h-company"
+            style={{
+              color: "var(--text-hi)",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
+              transition: "color .15s",
+            }}
+          >
+            {project.name}{" "}
+            <span style={{ fontSize: 11, color: "var(--text-lo)" }}>↗</span>
+          </a>
+        ) : (
+          project.name
+        )}
       </h3>
       <div
         style={{
