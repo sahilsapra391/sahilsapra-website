@@ -24,7 +24,7 @@ export function Footer() {
         <span>
           © {year} {profile.identity.name}
         </span>
-        <span>built with love &amp; next.js</span>
+        <span>built with love &amp; claude</span>
       </div>
     </footer>
   );

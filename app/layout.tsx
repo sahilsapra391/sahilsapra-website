@@ -55,7 +55,6 @@ export const metadata: Metadata = {
     identity.name,
     "Product Manager",
     "Technical Product Manager",
-    "Business Analyst",
     "Product Owner",
     "QA Automation",
     "Release Quality",
