@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Project } from "@/lib/types";
 import { logEvent } from "@/lib/analytics";
+import { useMediaQuery } from "@/lib/hooks";
 
 export function ProjectCard({ project }: { project: Project }) {
   // Two ways a card opens. Hovering is a peek: it closes itself the moment the
@@ -12,17 +13,10 @@ export function ProjectCard({ project }: { project: Project }) {
   const [pinned, setPinned] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [suppressed, setSuppressed] = useState(false);
-  const [canHover, setCanHover] = useState(false);
 
   // Touch devices fire mouseenter on tap and never fire the matching leave,
   // which would strand cards open. Peeking is desktop-pointer only.
-  useEffect(() => {
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setCanHover(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+  const canHover = useMediaQuery("(hover: hover) and (pointer: fine)");
 
   const peeking = canHover && hovered && !suppressed;
   const expanded = pinned || peeking;
