@@ -122,6 +122,11 @@ export async function POST(req: Request) {
   const reader = upstream.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
+  // OpenRouter reports failures that happen after the stream opens as an
+  // `error` frame on an HTTP 200. Skipping those silently left visitors staring
+  // at an empty reply, so track whether any text went out and why it ended.
+  let sent = 0;
+  let finish: string | undefined;
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
@@ -136,24 +141,41 @@ export async function POST(req: Request) {
             const t = line.trim();
             if (!t.startsWith("data:")) continue;
             const data = t.slice(5).trim();
-            if (data === "[DONE]") {
-              controller.close();
-              return;
-            }
+            if (data === "[DONE]") break;
+            let json;
             try {
-              const json = JSON.parse(data);
-              const delta = json?.choices?.[0]?.delta?.content;
-              if (typeof delta === "string" && delta.length) {
-                controller.enqueue(encoder.encode(delta));
-              }
+              json = JSON.parse(data);
             } catch {
-              // ignore keep-alive / partial frames
+              continue; // keep-alive / partial frame
+            }
+            if (json?.error) {
+              console.error(
+                `[chat] OpenRouter stream error for model "${MODEL}":`,
+                JSON.stringify(json.error).slice(0, 500),
+              );
+            }
+            const choice = json?.choices?.[0];
+            if (choice?.finish_reason) finish = choice.finish_reason;
+            const delta = choice?.delta?.content;
+            if (typeof delta === "string" && delta.length) {
+              sent += delta.length;
+              controller.enqueue(encoder.encode(delta));
             }
           }
         }
       } catch (err) {
         console.error("[chat] stream error:", err);
       } finally {
+        if (!sent) {
+          console.error(
+            `[chat] empty reply from "${MODEL}" (finish_reason: ${finish ?? "none"})`,
+          );
+          controller.enqueue(
+            encoder.encode(
+              `Sorry, I blanked on that one. ${profile.chatbot.escalationNote}`,
+            ),
+          );
+        }
         controller.close();
       }
     },
