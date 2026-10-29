@@ -12,6 +12,7 @@ import { LinkedInIcon, GitHubIcon, YouTubeIcon } from "@/components/ui/icons";
 import { usePathname, useRouter } from "next/navigation";
 import { sectionHref } from "@/lib/nav";
 import { logEvent } from "@/lib/analytics";
+import { useMounted } from "@/lib/hooks";
 
 type NavLink = { label: string; href: string };
 
@@ -36,10 +37,9 @@ export function MobileNav({
   links: Links;
 }) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const pathname = usePathname();
   const router = useRouter();
-  useEffect(() => setMounted(true), []);
 
   // lock body scroll while the menu is open
   useEffect(() => {

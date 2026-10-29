@@ -2,20 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { HeadlineMetric } from "@/lib/types";
+import { useMediaQuery } from "@/lib/hooks";
 
 export function HeadlineMetrics({ metrics }: { metrics: HeadlineMetric[] }) {
   const [counts, setCounts] = useState<number[]>(() => metrics.map(() => 0));
   const ref = useRef<HTMLDivElement>(null);
   const started = useRef(false);
+  // Reduced motion skips the count-up and shows the final numbers.
+  const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
+    if (reduce) return;
     const targets = metrics.map((m) => m.value);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduce) {
-      setCounts(targets);
-      return;
-    }
 
     let raf = 0;
     const run = () => {
@@ -51,7 +49,7 @@ export function HeadlineMetrics({ metrics }: { metrics: HeadlineMetric[] }) {
       io.disconnect();
       cancelAnimationFrame(raf);
     };
-  }, [metrics]);
+  }, [metrics, reduce]);
 
   return (
     <div style={{ marginTop: 54, borderTop: "1px solid var(--line)" }}>
@@ -93,7 +91,7 @@ export function HeadlineMetrics({ metrics }: { metrics: HeadlineMetric[] }) {
                 }}
               >
                 {m.lead}
-                {Math.round(counts[i] ?? 0)}
+                {Math.round(reduce ? m.value : (counts[i] ?? 0))}
                 {m.suffix}
               </div>
               <div
